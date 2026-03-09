@@ -10,11 +10,6 @@
   },
   "packageRules": [
     {
-      "groupName": "AI SDK packages",
-      "matchPackageNames": ["/^ai$/", "/^@ai-sdk\//"],
-      "matchUpdateTypes": ["major"]
-    },
-    {
       "description": "Bypass minimum release age for trusted packages",
       "matchPackageNames": [
         "@tanstack/react-router-devtools",
