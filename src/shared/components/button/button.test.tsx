@@ -1,10 +1,9 @@
 import { screen } from "@testing-library/react";
-import type { ButtonProps } from "react-aria-components";
 import { describe, expect, it, vi } from "vitest";
 
 import { renderComponent } from "#/tests/utils/renderers/renderers.mod";
 
-import { Button } from "./button.mod";
+import { Button, type ButtonProps } from "./button.mod";
 
 const handleFormSubmission: React.SubmitEventHandler<HTMLFormElement> = (
   event,
