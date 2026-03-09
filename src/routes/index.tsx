@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
   component: IndexRoute,
@@ -21,10 +21,6 @@ function IndexRoute() {
       <p className="text-base-content/70">
         The previous intake flow has been removed while the app is repurposed.
       </p>
-
-      <Link className="link" to="/wizard/categorization">
-        Open the current wizard shell
-      </Link>
     </div>
   );
 }
