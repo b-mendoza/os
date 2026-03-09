@@ -9,5 +9,10 @@
   "search.exclude": {
     "**/routeTree.gen.ts": true
   },
-  "js/ts.preferences.autoImportFileExcludePatterns": ["lucide-react"]
+
+  // VS Code-specific settings
+  "js/ts.preferences.autoImportFileExcludePatterns": ["lucide-react"],
+
+  // Cursor-specific settings
+  "typescript.preferences.autoImportFileExcludePatterns": ["lucide-react"]
 }
