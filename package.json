@@ -23,8 +23,6 @@
     "test:watch": "vitest watch"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.1003.0",
-    "@aws-sdk/s3-request-presigner": "3.1003.0",
     "@date-fns/utc": "2.1.1",
     "@faker-js/faker": "10.3.0",
     "@hookform/resolvers": "5.2.2",
@@ -39,10 +37,6 @@
     "@trpc/server": "11.11.0",
     "@trpc/tanstack-react-query": "11.11.0",
     "@unpic/react": "1.0.2",
-    "@uppy/core": "5.2.0",
-    "@uppy/dashboard": "5.1.1",
-    "@uppy/react": "5.2.0",
-    "@uppy/xhr-upload": "5.1.1",
     "clsx": "2.1.1",
     "date-fns": "4.1.0",
     "devalue": "5.6.3",
