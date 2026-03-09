@@ -1,15 +1,10 @@
 minimumReleaseAge: 1440 # 24 hours
 minimumReleaseAgeExclude:
-  - "@cloudflare/unenv-preset"
-  - "@cloudflare/vite-plugin"
   - "@tanstack/react-router*"
   - "@tanstack/react-start*"
   - "@tanstack/router-*"
   - "@tanstack/start-*"
-  - "miniflare"
   - "react-dom"
   - "react"
-  - "workerd"
-  - "wrangler"
 saveExact: true
 # storeDir: ./.pnpm-store

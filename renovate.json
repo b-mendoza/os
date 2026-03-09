@@ -22,15 +22,13 @@
     {
       "description": "Bypass minimum release age for trusted packages",
       "matchPackageNames": [
-        "@cloudflare/vite-plugin",
         "@tanstack/react-router-devtools",
         "@tanstack/react-router-ssr-query",
         "@tanstack/react-router",
         "@tanstack/react-start",
         "@tanstack/router-plugin",
         "react-dom",
-        "react",
-        "wrangler"
+        "react"
       ],
       "minimumReleaseAge": null
     }
