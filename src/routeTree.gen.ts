@@ -9,39 +9,9 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as R5GeminiRouteImport } from './routes/5-gemini'
-import { Route as R4GeminiRouteImport } from './routes/4-gemini'
-import { Route as R3GeminiRouteImport } from './routes/3-gemini'
-import { Route as R2GeminiRouteImport } from './routes/2-gemini'
-import { Route as R1GeminiRouteImport } from './routes/1-gemini'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiTrpcSplatRouteImport } from './routes/api/trpc.$'
 
-const R5GeminiRoute = R5GeminiRouteImport.update({
-  id: '/5-gemini',
-  path: '/5-gemini',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const R4GeminiRoute = R4GeminiRouteImport.update({
-  id: '/4-gemini',
-  path: '/4-gemini',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const R3GeminiRoute = R3GeminiRouteImport.update({
-  id: '/3-gemini',
-  path: '/3-gemini',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const R2GeminiRoute = R2GeminiRouteImport.update({
-  id: '/2-gemini',
-  path: '/2-gemini',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const R1GeminiRoute = R1GeminiRouteImport.update({
-  id: '/1-gemini',
-  path: '/1-gemini',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -55,109 +25,32 @@ const ApiTrpcSplatRoute = ApiTrpcSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/1-gemini': typeof R1GeminiRoute
-  '/2-gemini': typeof R2GeminiRoute
-  '/3-gemini': typeof R3GeminiRoute
-  '/4-gemini': typeof R4GeminiRoute
-  '/5-gemini': typeof R5GeminiRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/1-gemini': typeof R1GeminiRoute
-  '/2-gemini': typeof R2GeminiRoute
-  '/3-gemini': typeof R3GeminiRoute
-  '/4-gemini': typeof R4GeminiRoute
-  '/5-gemini': typeof R5GeminiRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/1-gemini': typeof R1GeminiRoute
-  '/2-gemini': typeof R2GeminiRoute
-  '/3-gemini': typeof R3GeminiRoute
-  '/4-gemini': typeof R4GeminiRoute
-  '/5-gemini': typeof R5GeminiRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/1-gemini'
-    | '/2-gemini'
-    | '/3-gemini'
-    | '/4-gemini'
-    | '/5-gemini'
-    | '/api/trpc/$'
+  fullPaths: '/' | '/api/trpc/$'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/1-gemini'
-    | '/2-gemini'
-    | '/3-gemini'
-    | '/4-gemini'
-    | '/5-gemini'
-    | '/api/trpc/$'
-  id:
-    | '__root__'
-    | '/'
-    | '/1-gemini'
-    | '/2-gemini'
-    | '/3-gemini'
-    | '/4-gemini'
-    | '/5-gemini'
-    | '/api/trpc/$'
+  to: '/' | '/api/trpc/$'
+  id: '__root__' | '/' | '/api/trpc/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  R1GeminiRoute: typeof R1GeminiRoute
-  R2GeminiRoute: typeof R2GeminiRoute
-  R3GeminiRoute: typeof R3GeminiRoute
-  R4GeminiRoute: typeof R4GeminiRoute
-  R5GeminiRoute: typeof R5GeminiRoute
   ApiTrpcSplatRoute: typeof ApiTrpcSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/5-gemini': {
-      id: '/5-gemini'
-      path: '/5-gemini'
-      fullPath: '/5-gemini'
-      preLoaderRoute: typeof R5GeminiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/4-gemini': {
-      id: '/4-gemini'
-      path: '/4-gemini'
-      fullPath: '/4-gemini'
-      preLoaderRoute: typeof R4GeminiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/3-gemini': {
-      id: '/3-gemini'
-      path: '/3-gemini'
-      fullPath: '/3-gemini'
-      preLoaderRoute: typeof R3GeminiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/2-gemini': {
-      id: '/2-gemini'
-      path: '/2-gemini'
-      fullPath: '/2-gemini'
-      preLoaderRoute: typeof R2GeminiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/1-gemini': {
-      id: '/1-gemini'
-      path: '/1-gemini'
-      fullPath: '/1-gemini'
-      preLoaderRoute: typeof R1GeminiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -177,11 +70,6 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  R1GeminiRoute: R1GeminiRoute,
-  R2GeminiRoute: R2GeminiRoute,
-  R3GeminiRoute: R3GeminiRoute,
-  R4GeminiRoute: R4GeminiRoute,
-  R5GeminiRoute: R5GeminiRoute,
   ApiTrpcSplatRoute: ApiTrpcSplatRoute,
 }
 export const routeTree = rootRouteImport
