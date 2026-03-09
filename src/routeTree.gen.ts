@@ -16,11 +16,8 @@ import { Route as R3GeminiRouteImport } from './routes/3-gemini'
 import { Route as R2GeminiRouteImport } from './routes/2-gemini'
 import { Route as R1GeminiRouteImport } from './routes/1-gemini'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as WizardUploadRouteImport } from './routes/wizard/upload'
 import { Route as WizardCategorizationRouteImport } from './routes/wizard/categorization'
 import { Route as WizardAnalysisRouteImport } from './routes/wizard/analysis'
-import { Route as ApiUploadRouteImport } from './routes/api/upload'
-import { Route as AnalysesAnalysis_idRouteImport } from './routes/analyses.$analysis_id'
 import { Route as ApiTrpcSplatRouteImport } from './routes/api/trpc.$'
 
 const WizardRoute = WizardRouteImport.update({
@@ -58,11 +55,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const WizardUploadRoute = WizardUploadRouteImport.update({
-  id: '/upload',
-  path: '/upload',
-  getParentRoute: () => WizardRoute,
-} as any)
 const WizardCategorizationRoute = WizardCategorizationRouteImport.update({
   id: '/categorization',
   path: '/categorization',
@@ -72,16 +64,6 @@ const WizardAnalysisRoute = WizardAnalysisRouteImport.update({
   id: '/analysis',
   path: '/analysis',
   getParentRoute: () => WizardRoute,
-} as any)
-const ApiUploadRoute = ApiUploadRouteImport.update({
-  id: '/api/upload',
-  path: '/api/upload',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AnalysesAnalysis_idRoute = AnalysesAnalysis_idRouteImport.update({
-  id: '/analyses/$analysis_id',
-  path: '/analyses/$analysis_id',
-  getParentRoute: () => rootRouteImport,
 } as any)
 const ApiTrpcSplatRoute = ApiTrpcSplatRouteImport.update({
   id: '/api/trpc/$',
@@ -97,11 +79,8 @@ export interface FileRoutesByFullPath {
   '/4-gemini': typeof R4GeminiRoute
   '/5-gemini': typeof R5GeminiRoute
   '/wizard': typeof WizardRouteWithChildren
-  '/analyses/$analysis_id': typeof AnalysesAnalysis_idRoute
-  '/api/upload': typeof ApiUploadRoute
   '/wizard/analysis': typeof WizardAnalysisRoute
   '/wizard/categorization': typeof WizardCategorizationRoute
-  '/wizard/upload': typeof WizardUploadRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
 }
 export interface FileRoutesByTo {
@@ -112,11 +91,8 @@ export interface FileRoutesByTo {
   '/4-gemini': typeof R4GeminiRoute
   '/5-gemini': typeof R5GeminiRoute
   '/wizard': typeof WizardRouteWithChildren
-  '/analyses/$analysis_id': typeof AnalysesAnalysis_idRoute
-  '/api/upload': typeof ApiUploadRoute
   '/wizard/analysis': typeof WizardAnalysisRoute
   '/wizard/categorization': typeof WizardCategorizationRoute
-  '/wizard/upload': typeof WizardUploadRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
 }
 export interface FileRoutesById {
@@ -128,11 +104,8 @@ export interface FileRoutesById {
   '/4-gemini': typeof R4GeminiRoute
   '/5-gemini': typeof R5GeminiRoute
   '/wizard': typeof WizardRouteWithChildren
-  '/analyses/$analysis_id': typeof AnalysesAnalysis_idRoute
-  '/api/upload': typeof ApiUploadRoute
   '/wizard/analysis': typeof WizardAnalysisRoute
   '/wizard/categorization': typeof WizardCategorizationRoute
-  '/wizard/upload': typeof WizardUploadRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
 }
 export interface FileRouteTypes {
@@ -145,11 +118,8 @@ export interface FileRouteTypes {
     | '/4-gemini'
     | '/5-gemini'
     | '/wizard'
-    | '/analyses/$analysis_id'
-    | '/api/upload'
     | '/wizard/analysis'
     | '/wizard/categorization'
-    | '/wizard/upload'
     | '/api/trpc/$'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -160,11 +130,8 @@ export interface FileRouteTypes {
     | '/4-gemini'
     | '/5-gemini'
     | '/wizard'
-    | '/analyses/$analysis_id'
-    | '/api/upload'
     | '/wizard/analysis'
     | '/wizard/categorization'
-    | '/wizard/upload'
     | '/api/trpc/$'
   id:
     | '__root__'
@@ -175,11 +142,8 @@ export interface FileRouteTypes {
     | '/4-gemini'
     | '/5-gemini'
     | '/wizard'
-    | '/analyses/$analysis_id'
-    | '/api/upload'
     | '/wizard/analysis'
     | '/wizard/categorization'
-    | '/wizard/upload'
     | '/api/trpc/$'
   fileRoutesById: FileRoutesById
 }
@@ -191,8 +155,6 @@ export interface RootRouteChildren {
   R4GeminiRoute: typeof R4GeminiRoute
   R5GeminiRoute: typeof R5GeminiRoute
   WizardRoute: typeof WizardRouteWithChildren
-  AnalysesAnalysis_idRoute: typeof AnalysesAnalysis_idRoute
-  ApiUploadRoute: typeof ApiUploadRoute
   ApiTrpcSplatRoute: typeof ApiTrpcSplatRoute
 }
 
@@ -247,13 +209,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/wizard/upload': {
-      id: '/wizard/upload'
-      path: '/upload'
-      fullPath: '/wizard/upload'
-      preLoaderRoute: typeof WizardUploadRouteImport
-      parentRoute: typeof WizardRoute
-    }
     '/wizard/categorization': {
       id: '/wizard/categorization'
       path: '/categorization'
@@ -268,20 +223,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WizardAnalysisRouteImport
       parentRoute: typeof WizardRoute
     }
-    '/api/upload': {
-      id: '/api/upload'
-      path: '/api/upload'
-      fullPath: '/api/upload'
-      preLoaderRoute: typeof ApiUploadRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/analyses/$analysis_id': {
-      id: '/analyses/$analysis_id'
-      path: '/analyses/$analysis_id'
-      fullPath: '/analyses/$analysis_id'
-      preLoaderRoute: typeof AnalysesAnalysis_idRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/api/trpc/$': {
       id: '/api/trpc/$'
       path: '/api/trpc/$'
@@ -295,13 +236,11 @@ declare module '@tanstack/react-router' {
 interface WizardRouteChildren {
   WizardAnalysisRoute: typeof WizardAnalysisRoute
   WizardCategorizationRoute: typeof WizardCategorizationRoute
-  WizardUploadRoute: typeof WizardUploadRoute
 }
 
 const WizardRouteChildren: WizardRouteChildren = {
   WizardAnalysisRoute: WizardAnalysisRoute,
   WizardCategorizationRoute: WizardCategorizationRoute,
-  WizardUploadRoute: WizardUploadRoute,
 }
 
 const WizardRouteWithChildren =
@@ -315,8 +254,6 @@ const rootRouteChildren: RootRouteChildren = {
   R4GeminiRoute: R4GeminiRoute,
   R5GeminiRoute: R5GeminiRoute,
   WizardRoute: WizardRouteWithChildren,
-  AnalysesAnalysis_idRoute: AnalysesAnalysis_idRoute,
-  ApiUploadRoute: ApiUploadRoute,
   ApiTrpcSplatRoute: ApiTrpcSplatRoute,
 }
 export const routeTree = rootRouteImport

@@ -1,7 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
-
-import { Button } from "#/shared/components/button/button.mod";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
   component: IndexRoute,
@@ -17,36 +14,17 @@ export const Route = createFileRoute("/")({
 });
 
 function IndexRoute() {
-  const navigate = Route.useNavigate();
-
-  const { trpc } = Route.useRouteContext();
-
-  const startAnalysisMutationResult = useMutation(
-    trpc.fileUploader.startAnalysis.mutationOptions({
-      async onSuccess(createdAnalysis) {
-        await navigate({
-          to: "/analyses/$analysis_id",
-          params: {
-            analysis_id: createdAnalysis.id,
-          },
-        });
-      },
-    }),
-  );
-
-  const handleSendFileForOCR = () => {
-    startAnalysisMutationResult.mutate({
-      fileUrl:
-        "https://5xak6urqwt.ucarecd.net/77a9ce4a-d78a-4b01-a4b8-32c5155a3e5e/Recibos_HS_Avalos-1_2.jpg",
-    });
-  };
-
   return (
-    <Button
-      isPending={startAnalysisMutationResult.isPending}
-      onPress={handleSendFileForOCR}
-    >
-      Analyze Invoice
-    </Button>
+    <div className="flex flex-col gap-4 p-4">
+      <h1 className="text-2xl font-bold">Spend Guard</h1>
+
+      <p className="text-base-content/70">
+        The previous intake flow has been removed while the app is repurposed.
+      </p>
+
+      <Link className="link" to="/wizard/categorization">
+        Open the current wizard shell
+      </Link>
+    </div>
   );
 }

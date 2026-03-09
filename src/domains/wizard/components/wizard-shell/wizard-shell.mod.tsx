@@ -61,16 +61,5 @@ function WizardStepListItem(props: Readonly<WizardStepListItemProps>) {
     "step-primary": isCompleted,
   });
 
-  return (
-    <li className={listItemClassNames}>
-      {/*
-       * In the future, we'd like to make these step indicators clickable so users can jump
-       * between steps they've already completed. This would be especially helpful if someone
-       * wants to review or change something from an earlier step without having to click
-       * "Previous" multiple times. To do this safely, we'll need to persist the wizard state
-       * (uploaded files, form data, etc.) so users don't lose their progress when navigating.
-       */}
-      {label}
-    </li>
-  );
+  return <li className={listItemClassNames}>{label}</li>;
 }
