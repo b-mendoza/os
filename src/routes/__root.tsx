@@ -78,7 +78,7 @@ function DocumentShell(props: Readonly<DocumentShellProps>) {
   const { children } = props;
 
   return (
-    <html data-theme="light" lang="en">
+    <html lang="en">
       <head>
         <HeadContent />
       </head>
