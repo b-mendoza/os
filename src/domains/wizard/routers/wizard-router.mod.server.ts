@@ -1,6 +1,5 @@
 import { randomUUID } from "node:crypto";
 
-import { eq } from "drizzle-orm";
 import * as z from "zod";
 
 import {
@@ -8,25 +7,24 @@ import {
   SIGNED_URL_EXPIRATION_SECONDS,
   WIZARD_UPLOAD_FILE_COUNT,
 } from "#/domains/wizard/constants/wizard.mod";
-import type {
-  NewUploadedDocument,
-  UploadedDocument,
-} from "#/shared/db/db.schema.server";
-import {
-  analysisSessionsTable,
-  documentCategoryEnum,
-  uploadedDocumentsTable,
-} from "#/shared/db/db.schema.server";
 import {
   createTRPCRouter,
   publicProcedure,
 } from "#/shared/libs/trpc/utils/initializer/initializer.mod.server";
 import { getApplicationBindings } from "#/shared/middlewares/application-bindings/application-bindings.mod";
 
-interface SelectedDocument extends Pick<
-  UploadedDocument,
-  "fileName" | "fileSizeBytes" | "id" | "mimeType" | "storageKey"
-> {}
+interface StoredDocument {
+  fileName: string;
+  fileSizeBytes: number;
+  id: string;
+  mimeType: string;
+  sessionId: string;
+  storageKey: string;
+}
+
+interface SelectedDocument extends Omit<StoredDocument, "sessionId"> {}
+
+const wizardSessionDocuments = new Map<string, StoredDocument[]>();
 
 const appendSignedUrls = async (documents: SelectedDocument[]) => {
   const { storage } = getApplicationBindings();
@@ -59,45 +57,15 @@ const createSessionInputSchema = z.object({
   documents: z.array(uploadedFileSchema).length(WIZARD_UPLOAD_FILE_COUNT),
 });
 
-/**
- * TEMPORARY SCAFFOLDING - Will be removed when AI categorization is implemented.
- *
- * This function generates mock AI categorization data using Faker until the real
- * AI categorization service is integrated. The dynamic import keeps faker out of
- * the main bundle since it's only used server-side for mocking.
- */
-const createDocument = async (
-  sessionId: string,
-  uploadedFile: UploadedFile,
-) => {
-  const { faker } = await import("@faker-js/faker");
-
-  const aiSuggestedCategory = faker.helpers.arrayElement(
-    documentCategoryEnum.enumValues,
-  );
-
-  const category = faker.helpers.arrayElement(documentCategoryEnum.enumValues);
-
-  const aiSuggestionConfidence = faker.number.float({
-    min: 0,
-    max: 1,
-    multipleOf: 0.01,
-  });
-
+const createDocument = (sessionId: string, uploadedFile: UploadedFile) => {
   return {
-    aiSuggestedCategory,
-    aiSuggestionConfidence: aiSuggestionConfidence.toString(),
-    category,
-
-    // File metadata from upload
     fileName: uploadedFile.fileName,
     fileSizeBytes: uploadedFile.fileSizeBytes,
+    id: randomUUID(),
     mimeType: uploadedFile.mimeType,
-    storageKey: uploadedFile.storageKey,
-
-    // Relationships
     sessionId,
-  } satisfies NewUploadedDocument;
+    storageKey: uploadedFile.storageKey,
+  } satisfies StoredDocument;
 };
 
 const getDocumentsBySessionInputsSchema = z.object({
@@ -109,35 +77,16 @@ export const wizardRouter = createTRPCRouter({
     .input(createSessionInputSchema)
     .mutation(async (opts) => {
       const { documents } = opts.input;
-      const { db } = getApplicationBindings();
 
       const sessionId = randomUUID();
 
-      const newDocuments = await Promise.all(
-        documents.map(async (uploadedFile) =>
-          createDocument(sessionId, uploadedFile),
-        ),
+      const storedDocuments = documents.map((uploadedFile) =>
+        createDocument(sessionId, uploadedFile),
       );
 
-      const insertedDocuments = await db.transaction(async (tx) => {
-        await tx.insert(analysisSessionsTable).values({
-          id: sessionId,
-          status: "draft",
-        });
+      wizardSessionDocuments.set(sessionId, storedDocuments);
 
-        return tx
-          .insert(uploadedDocumentsTable)
-          .values(newDocuments)
-          .returning({
-            fileName: uploadedDocumentsTable.fileName,
-            fileSizeBytes: uploadedDocumentsTable.fileSizeBytes,
-            id: uploadedDocumentsTable.id,
-            mimeType: uploadedDocumentsTable.mimeType,
-            storageKey: uploadedDocumentsTable.storageKey,
-          });
-      });
-
-      const documentsWithUrls = await appendSignedUrls(insertedDocuments);
+      const documentsWithUrls = await appendSignedUrls(storedDocuments);
 
       return {
         documents: documentsWithUrls,
@@ -149,18 +98,11 @@ export const wizardRouter = createTRPCRouter({
     .query(async (opts) => {
       const { sessionId } = opts.input;
 
-      const { db } = getApplicationBindings();
+      const storedDocuments = wizardSessionDocuments.get(sessionId) ?? [];
 
-      const selectedDocuments = await db
-        .select({
-          fileName: uploadedDocumentsTable.fileName,
-          fileSizeBytes: uploadedDocumentsTable.fileSizeBytes,
-          id: uploadedDocumentsTable.id,
-          mimeType: uploadedDocumentsTable.mimeType,
-          storageKey: uploadedDocumentsTable.storageKey,
-        })
-        .from(uploadedDocumentsTable)
-        .where(eq(uploadedDocumentsTable.sessionId, sessionId));
+      const selectedDocuments = storedDocuments.map(
+        ({ sessionId: _sessionId, ...document }) => document,
+      );
 
       const documents = await appendSignedUrls(selectedDocuments);
 
