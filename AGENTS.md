@@ -14,8 +14,6 @@ If Node.js (see `.nvmrc`) or `pnpm` is not installed or not at the expected vers
 
 ## Progressive Disclosure
 
-- [Build and quality commands](docs/agent/build-and-quality.md)
-- [Code conventions](docs/agent/code-conventions.md)
-- [Architecture and server boundaries](docs/agent/architecture-and-bindings.md)
-- [Database and storage reference](docs/agent/data-and-storage.md)
-- [Workflow and task scoping](docs/agent/workflow-and-decomposition.md)
+- [Architecture and server boundaries](docs/architecture.md)
+- [Code conventions](docs/conventions.md)
+- [Workflow and task scoping](docs/workflow.md)
