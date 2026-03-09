@@ -8,11 +8,6 @@
 - `pnpm run lint` — Run all lint checks (`oxfmt`, `tsc`, `eslint`)
 - `pnpm run fix` — Auto-fix all issues
 
-## Database Commands
-
-- `pnpm run db:generate` — Generate Drizzle migrations
-- `pnpm run db:migrate` — Run migrations
-
 ## Formatting Notes
 
 - This project uses `oxfmt` (not Prettier).

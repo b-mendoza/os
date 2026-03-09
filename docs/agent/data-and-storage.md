@@ -1,21 +1,10 @@
-# Database And Storage Reference
+# Storage And Session Reference
 
-## Database
+## Session persistence
 
-- PostgreSQL via Drizzle ORM.
-- Schema is defined in `src/shared/db/db.schema.ts`.
-
-### Core tables
-
-- `analysis_sessions` — Groups 3 documents for wizard session (`draft` -> `analyzing` -> `completed` or `failed`)
-- `uploaded_documents` — File metadata, AI categorization, storage keys
-- `document_analyses` — Azure Content Understanding API results per document
-
-### Key enums
-
-- `analysis_session_status`: `draft`, `analyzing`, `completed`, `failed`
-- `document_category`: `invoice`, `purchase_order`, `receipt`
-- `analysis_status`: `not_started`, `running`, `succeeded`, `failed`
+- No database is configured.
+- Wizard upload sessions are stored in memory in `src/domains/wizard/routers/wizard-router.mod.server.ts`.
+- Session data resets when the server restarts.
 
 ## Storage
 
