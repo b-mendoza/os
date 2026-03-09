@@ -1,0 +1,40 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    ":automergeMinor",
+    "config:best-practices",
+    ":pinAllExceptPeerDependencies"
+  ],
+  "lockFileMaintenance": {
+    "enabled": true
+  },
+  "packageRules": [
+    {
+      "groupName": "AI SDK packages",
+      "matchPackageNames": ["/^ai$/", "/^@ai-sdk\//"],
+      "matchUpdateTypes": ["major"]
+    },
+    {
+      "description": "Disable Drizzle updates — non-standard beta tags cause downgrades",
+      "enabled": false,
+      "matchPackageNames": ["drizzle-kit", "drizzle-orm"]
+    },
+    {
+      "description": "Bypass minimum release age for trusted packages",
+      "matchPackageNames": [
+        "@cloudflare/vite-plugin",
+        "@tanstack/react-router-devtools",
+        "@tanstack/react-router-ssr-query",
+        "@tanstack/react-router",
+        "@tanstack/react-start",
+        "@tanstack/router-plugin",
+        "react-dom",
+        "react",
+        "wrangler"
+      ],
+      "minimumReleaseAge": null
+    }
+  ],
+  "rebaseWhen": "conflicted",
+  "reviewers": ["b-mendoza"]
+}

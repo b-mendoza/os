@@ -1,0 +1,24 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "spend-guard",
+  "main": "@tanstack/react-start/server-entry",
+  "compatibility_date": "2026-03-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "hyperdrive": [
+    {
+      "binding": "HYPERDRIVE",
+      "id": "19a2cc68a2174c73ab192feb5ab1d6cc",
+      "localConnectionString": "postgresql://postgres:postgres@127.0.0.1:54322/postgres",
+    },
+  ],
+  "observability": {
+    "enabled": true,
+  },
+  "r2_buckets": [
+    {
+      "binding": "UPLOADS_BUCKET",
+      "bucket_name": "spend-guard-uploads",
+    },
+  ],
+  "upload_source_maps": true,
+}
