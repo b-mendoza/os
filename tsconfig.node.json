@@ -33,7 +33,6 @@
     "verbatimModuleSyntax": false
   },
   "include": [
-    "drizzle.config.ts",
     "eslint.config.js",
     "scripts/**/*",
     "vite.config.ts",
