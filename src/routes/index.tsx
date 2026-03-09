@@ -1,7 +1,5 @@
-import { useChat } from "@ai-sdk/react";
 import { useMutation } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { DefaultChatTransport } from "ai";
 
 import { Button } from "#/shared/components/button/button.mod";
 
@@ -17,8 +15,6 @@ export const Route = createFileRoute("/")({
     };
   },
 });
-
-const SSE_PATH = "/sse";
 
 function IndexRoute() {
   const navigate = Route.useNavigate();
@@ -37,12 +33,6 @@ function IndexRoute() {
       },
     }),
   );
-
-  const chatResult = useChat({
-    transport: new DefaultChatTransport({
-      api: SSE_PATH,
-    }),
-  });
 
   const handleSendFileForOCR = () => {
     startAnalysisMutationResult.mutate({
