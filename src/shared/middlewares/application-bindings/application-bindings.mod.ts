@@ -5,14 +5,11 @@ import * as z from "zod";
 
 import type { Env } from "#/shared/config/env/env.mod.server";
 import { envSchema } from "#/shared/config/env/env.mod.server";
-import type { DrizzleDatabaseClient } from "#/shared/db/db.mod.server";
-import { createDrizzleDatabaseClient } from "#/shared/db/db.mod.server";
 import { createS3StorageProvider } from "#/shared/storage/s3-storage.mod.server";
 import type { StorageProvider } from "#/shared/storage/storage.types";
 import { invariant } from "#/shared/utils/invariant/invariant.mod";
 
 interface ApplicationBindingsValue {
-  db: DrizzleDatabaseClient;
   env: Env;
   storage: StorageProvider;
 }
@@ -24,10 +21,6 @@ export const applicationBindingsMiddleware = createMiddleware({
   type: "request",
 }).server(async (opts) => {
   const safeEnvironmentVariables = z.parse(envSchema, process.env);
-
-  const databaseClient = createDrizzleDatabaseClient(
-    safeEnvironmentVariables.DATABASE_URL,
-  );
 
   const storageProvider = createS3StorageProvider({
     bucketName: safeEnvironmentVariables.STORAGE_BUCKET,
@@ -41,7 +34,6 @@ export const applicationBindingsMiddleware = createMiddleware({
 
   return ApplicationBindingsStorage.run(
     {
-      db: databaseClient,
       env: safeEnvironmentVariables,
       storage: storageProvider,
     },

@@ -12,8 +12,6 @@ const baseEnvSchema = z.object({
   AZURE_AI_REGION: z.string().trim().nonempty(),
   AZURE_AI_RESOURCE_ID: z.string().trim().nonempty(),
 
-  DATABASE_URL: z.string().trim().nonempty(),
-
   OPENROUTER_API_KEY: z.string().trim().nonempty(),
 
   STORAGE_ACCESS_KEY_ID: z.string().trim().nonempty(),
