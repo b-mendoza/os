@@ -885,8 +885,7 @@
     ".pnpm-store/",
     "coverage/",
     "dist/",
-    "src/routeTree.gen.ts",
-    "worker-configuration.d.ts"
+    "src/routeTree.gen.ts"
   ],
   "overrides": [
     {
