@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@faker-js/faker':
-        specifier: 10.3.0
-        version: 10.3.0
       '@tanstack/react-query':
         specifier: 5.90.21
         version: 5.90.21(react@19.2.4)
@@ -78,6 +75,9 @@ importers:
       '@eslint/js':
         specifier: 9.39.3
         version: 9.39.3
+      '@faker-js/faker':
+        specifier: 10.3.0
+        version: 10.3.0
       '@tailwindcss/vite':
         specifier: 4.2.1
         version: 4.2.1(vite@7.3.1(@types/node@24.11.2)(jiti@2.6.1)(lightningcss@1.31.1)(tsx@4.21.0))
