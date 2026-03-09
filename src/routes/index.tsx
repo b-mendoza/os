@@ -2,9 +2,7 @@ import { useChat } from "@ai-sdk/react";
 import { useMutation } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { DefaultChatTransport } from "ai";
-import { useEffect } from "react";
 
-import { useToastNotification } from "#/domains/notifications/hooks/use-toast/use-toast.mod";
 import { Button } from "#/shared/components/button/button.mod";
 
 export const Route = createFileRoute("/")({
@@ -23,8 +21,6 @@ export const Route = createFileRoute("/")({
 const SSE_PATH = "/sse";
 
 function IndexRoute() {
-  const { enqueueToast } = useToastNotification();
-
   const navigate = Route.useNavigate();
 
   const { trpc } = Route.useRouteContext();
@@ -47,19 +43,6 @@ function IndexRoute() {
       api: SSE_PATH,
     }),
   });
-
-  const chatStatus = chatResult.status;
-
-  const errorMessage = chatResult.error?.message;
-
-  useEffect(() => {
-    if (chatStatus !== "error" || typeof errorMessage !== "string") return;
-
-    enqueueToast({
-      content: errorMessage,
-      type: "ERROR",
-    });
-  }, [chatStatus, enqueueToast, errorMessage]);
 
   const handleSendFileForOCR = () => {
     startAnalysisMutationResult.mutate({
