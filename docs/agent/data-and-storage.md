@@ -19,7 +19,7 @@
 
 ## Storage
 
-- S3-compatible object storage via Cloudflare R2.
+- S3-compatible object storage.
 
 ### StorageProvider interface
 
@@ -27,13 +27,12 @@
 - `put(key, body, options)` uploads files.
 - `getSignedUrl(key, expiresInSeconds)` generates presigned URLs.
 
-### R2 implementation
+### S3-compatible implementation
 
-- `src/shared/storage/r2-storage.mod.ts` uses `R2Bucket` for uploads and `@aws-sdk/s3-request-presigner` for signed URLs.
+- `src/shared/storage/s3-storage.mod.server.ts` uses the AWS SDK for uploads and signed URLs.
 
-### Required environment variables (presigner)
+### Required environment variables
 
-- Runtime bindings (for example, `UPLOADS_BUCKET`) are intentionally excluded from this section.
 - `STORAGE_ENDPOINT` — S3-compatible endpoint used by the AWS SDK presigner client.
 - `STORAGE_REGION` — Region passed to the presigner client.
 - `STORAGE_BUCKET` — Bucket name used when generating signed read URLs.

@@ -138,9 +138,6 @@ function FileList() {
         <li key={file.id} className="bg-base-200 rounded-box overflow-hidden">
           {file.mimeType.startsWith("image/") ? (
             <Image
-              // TODO: Add cdn="cloudflare" once we have:
-              // - A domain/hosted zone in the Cloudflare account
-              // - Image Transformations enabled
               alt={file.fileName}
               className="aspect-video"
               src={file.cdnUrl}

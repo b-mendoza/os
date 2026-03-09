@@ -17,7 +17,7 @@ const SERVER_URL_EXPIRATION_MINUTES = 30;
 export const SIGNED_URL_EXPIRATION_MS =
   CLIENT_REFETCH_INTERVAL_MINUTES * SECONDS_PER_MINUTE * MS_PER_SECOND;
 
-/** Signed URL expiration in seconds (30 minutes) - for server-side R2 presigned URLs */
+/** Signed URL expiration in seconds (30 minutes) - for server-side presigned URLs */
 export const SIGNED_URL_EXPIRATION_SECONDS =
   SERVER_URL_EXPIRATION_MINUTES * SECONDS_PER_MINUTE;
 
