@@ -36,7 +36,7 @@ Added photo OCR and DTE auto-fill as new pillars; made matching "partial" with r
 
 - Inputs: 100–500 historical docs (photos/CSVs) for basic anomaly tuning (POC threshold lowered for small users).
 - Stack: Python backend (Flask/Django), Postgres + vector DB (Pinecone free tier), hosted LLM for OCR/embeddings/summaries, mobile-first UI (React Native app for photo capture + web dashboard), Slack/Teams alerts.
-- Integrations: Initial CSV/photo upload; phased API sync with local ERPs (Haz Conta Fácil, Softland, JARVIS); MH DTE API for auto-submission (requires user firma token handling).
+- Integrations: Initial CSV ingestion; phased API sync with local ERPs (Haz Conta Fácil, Softland, JARVIS); MH DTE API for auto-submission (requires user firma token handling).
 
 #### Note
 
