@@ -2,12 +2,13 @@
 
 ## Factory Functions Over Classes
 
-Use `createFooProvider()` not `new FooProvider()`.
+- Prefer `createFooProvider()` over `new FooProvider()`.
 
 ## TypeScript
 
-Interface methods use function property style: `method: (...) => ReturnType` (not shorthand). Enforced by `@typescript-eslint/method-signature-style`.
+- In interfaces, use function-property style for methods: `method: (...) => ReturnType`.
 
 ## Formatting
 
-Uses oxfmt (not Prettier). Format specific files with `pnpm oxfmt <file>`.
+- Use `oxfmt`, not Prettier.
+- Format a specific file with `pnpm oxfmt <file>`.
