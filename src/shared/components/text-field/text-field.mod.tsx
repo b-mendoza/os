@@ -1,43 +1,115 @@
-import type {
-  TextFieldProps as AriaTextFieldProps,
-  ValidationResult,
-} from "react-aria-components";
-import {
-  FieldError as AriaFieldError,
-  Input as AriaInput,
-  Label as AriaLabel,
-  Text as AriaText,
-  TextField as AriaTextField,
-} from "react-aria-components";
+import { useId } from "react";
 
 import { cn } from "#/shared/utils/classnames/classnames.mod";
 
-interface TextFieldProps extends AriaTextFieldProps {
+const getElementId = (inputId: string, shouldRender: boolean, suffix: string) =>
+  shouldRender ? `${inputId}-${suffix}` : undefined;
+
+const getDescribedBy = (...ids: Array<string | undefined>) => {
+  const validIds = ids.filter((id): id is string => id !== undefined);
+  const [firstValidId] = validIds;
+
+  return firstValidId === undefined ? undefined : validIds.join(" ");
+};
+
+interface TextFieldLabelProps {
+  inputId: string;
+  label?: string;
+  labelId?: string;
+}
+
+const TextFieldLabel = (props: TextFieldLabelProps) => {
+  const { inputId, label, labelId } = props;
+
+  return label === undefined ? null : (
+    <label className="label" htmlFor={inputId} id={labelId}>
+      {label}
+    </label>
+  );
+};
+
+interface TextFieldDescriptionProps {
   description?: string;
-  errorMessage?: string | ((validation: ValidationResult) => string);
+  descriptionId?: string;
+}
+
+const TextFieldDescription = (props: TextFieldDescriptionProps) => {
+  const { description, descriptionId } = props;
+
+  return description === undefined ? null : (
+    <p id={descriptionId}>{description}</p>
+  );
+};
+
+interface TextFieldErrorProps {
+  errorId?: string;
+  errorMessage?: string;
+}
+
+const TextFieldError = (props: TextFieldErrorProps) => {
+  const { errorId, errorMessage } = props;
+
+  return errorMessage === undefined ? null : (
+    <p className="validator-hint" id={errorId}>
+      {errorMessage}
+    </p>
+  );
+};
+
+export interface TextFieldProps extends Omit<
+  React.ComponentPropsWithoutRef<"input">,
+  "children" | "className" | "disabled" | "readOnly" | "required"
+> {
+  description?: string;
+  errorMessage?: string;
+  isDisabled?: boolean;
+  isInvalid?: boolean;
+  isReadOnly?: boolean;
+  isRequired?: boolean;
   label?: string;
   slotProps?: Partial<{
-    input: React.ComponentProps<typeof AriaInput>;
+    input: React.ComponentPropsWithRef<"input">;
   }>;
+  className?: string;
 }
 
 export const TextField = (props: TextFieldProps) => {
-  const { description, errorMessage, label, slotProps, ...textFieldProps } =
-    props;
+  const {
+    className,
+    description,
+    errorMessage,
+    id,
+    isDisabled,
+    isInvalid,
+    isReadOnly,
+    isRequired,
+    label,
+    slotProps,
+    ...inputProps
+  } = props;
+
+  const fallbackId = useId();
+  const inputId = id ?? fallbackId;
+  const hasLabel = label !== undefined;
+  const hasDescription = description !== undefined;
+  const hasErrorMessage = errorMessage !== undefined;
+  const labelId = getElementId(inputId, hasLabel, "label");
+  const descriptionId = getElementId(inputId, hasDescription, "description");
+  const errorId = getElementId(inputId, hasErrorMessage, "error");
+  const describedBy = getDescribedBy(descriptionId, errorId);
 
   return (
-    <AriaTextField
-      {...textFieldProps}
+    <div
       className={cn(
         // Layout classes
         "flex flex-col",
-        textFieldProps.className,
+        className,
       )}
-      validationBehavior={textFieldProps.validationBehavior ?? "aria"}
     >
-      <AriaLabel className="label">{label}</AriaLabel>
+      <TextFieldLabel inputId={inputId} label={label} labelId={labelId} />
 
-      <AriaInput
+      <input
+        {...inputProps}
         {...slotProps?.input}
         className={cn(
           // Base classes
@@ -46,13 +118,22 @@ export const TextField = (props: TextFieldProps) => {
           "w-full",
           slotProps?.input?.className,
         )}
+        aria-describedby={describedBy}
+        aria-invalid={isInvalid ?? undefined}
+        aria-labelledby={labelId}
+        aria-required={isRequired ?? undefined}
+        disabled={isDisabled}
+        id={inputId}
+        readOnly={isReadOnly}
+        required={isRequired}
       />
 
-      {typeof description === "string" ? (
-        <AriaText slot="description">{description}</AriaText>
-      ) : null}
+      <TextFieldDescription
+        description={description}
+        descriptionId={descriptionId}
+      />
 
-      <AriaFieldError className="validator-hint">{errorMessage}</AriaFieldError>
-    </AriaTextField>
+      <TextFieldError errorId={errorId} errorMessage={errorMessage} />
+    </div>
   );
 };
