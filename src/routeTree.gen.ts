@@ -9,22 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WizardRouteImport } from './routes/wizard'
 import { Route as R5GeminiRouteImport } from './routes/5-gemini'
 import { Route as R4GeminiRouteImport } from './routes/4-gemini'
 import { Route as R3GeminiRouteImport } from './routes/3-gemini'
 import { Route as R2GeminiRouteImport } from './routes/2-gemini'
 import { Route as R1GeminiRouteImport } from './routes/1-gemini'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as WizardCategorizationRouteImport } from './routes/wizard/categorization'
-import { Route as WizardAnalysisRouteImport } from './routes/wizard/analysis'
 import { Route as ApiTrpcSplatRouteImport } from './routes/api/trpc.$'
 
-const WizardRoute = WizardRouteImport.update({
-  id: '/wizard',
-  path: '/wizard',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const R5GeminiRoute = R5GeminiRouteImport.update({
   id: '/5-gemini',
   path: '/5-gemini',
@@ -55,16 +47,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const WizardCategorizationRoute = WizardCategorizationRouteImport.update({
-  id: '/categorization',
-  path: '/categorization',
-  getParentRoute: () => WizardRoute,
-} as any)
-const WizardAnalysisRoute = WizardAnalysisRouteImport.update({
-  id: '/analysis',
-  path: '/analysis',
-  getParentRoute: () => WizardRoute,
-} as any)
 const ApiTrpcSplatRoute = ApiTrpcSplatRouteImport.update({
   id: '/api/trpc/$',
   path: '/api/trpc/$',
@@ -78,9 +60,6 @@ export interface FileRoutesByFullPath {
   '/3-gemini': typeof R3GeminiRoute
   '/4-gemini': typeof R4GeminiRoute
   '/5-gemini': typeof R5GeminiRoute
-  '/wizard': typeof WizardRouteWithChildren
-  '/wizard/analysis': typeof WizardAnalysisRoute
-  '/wizard/categorization': typeof WizardCategorizationRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
 }
 export interface FileRoutesByTo {
@@ -90,9 +69,6 @@ export interface FileRoutesByTo {
   '/3-gemini': typeof R3GeminiRoute
   '/4-gemini': typeof R4GeminiRoute
   '/5-gemini': typeof R5GeminiRoute
-  '/wizard': typeof WizardRouteWithChildren
-  '/wizard/analysis': typeof WizardAnalysisRoute
-  '/wizard/categorization': typeof WizardCategorizationRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
 }
 export interface FileRoutesById {
@@ -103,9 +79,6 @@ export interface FileRoutesById {
   '/3-gemini': typeof R3GeminiRoute
   '/4-gemini': typeof R4GeminiRoute
   '/5-gemini': typeof R5GeminiRoute
-  '/wizard': typeof WizardRouteWithChildren
-  '/wizard/analysis': typeof WizardAnalysisRoute
-  '/wizard/categorization': typeof WizardCategorizationRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
 }
 export interface FileRouteTypes {
@@ -117,9 +90,6 @@ export interface FileRouteTypes {
     | '/3-gemini'
     | '/4-gemini'
     | '/5-gemini'
-    | '/wizard'
-    | '/wizard/analysis'
-    | '/wizard/categorization'
     | '/api/trpc/$'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -129,9 +99,6 @@ export interface FileRouteTypes {
     | '/3-gemini'
     | '/4-gemini'
     | '/5-gemini'
-    | '/wizard'
-    | '/wizard/analysis'
-    | '/wizard/categorization'
     | '/api/trpc/$'
   id:
     | '__root__'
@@ -141,9 +108,6 @@ export interface FileRouteTypes {
     | '/3-gemini'
     | '/4-gemini'
     | '/5-gemini'
-    | '/wizard'
-    | '/wizard/analysis'
-    | '/wizard/categorization'
     | '/api/trpc/$'
   fileRoutesById: FileRoutesById
 }
@@ -154,19 +118,11 @@ export interface RootRouteChildren {
   R3GeminiRoute: typeof R3GeminiRoute
   R4GeminiRoute: typeof R4GeminiRoute
   R5GeminiRoute: typeof R5GeminiRoute
-  WizardRoute: typeof WizardRouteWithChildren
   ApiTrpcSplatRoute: typeof ApiTrpcSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/wizard': {
-      id: '/wizard'
-      path: '/wizard'
-      fullPath: '/wizard'
-      preLoaderRoute: typeof WizardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/5-gemini': {
       id: '/5-gemini'
       path: '/5-gemini'
@@ -209,20 +165,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/wizard/categorization': {
-      id: '/wizard/categorization'
-      path: '/categorization'
-      fullPath: '/wizard/categorization'
-      preLoaderRoute: typeof WizardCategorizationRouteImport
-      parentRoute: typeof WizardRoute
-    }
-    '/wizard/analysis': {
-      id: '/wizard/analysis'
-      path: '/analysis'
-      fullPath: '/wizard/analysis'
-      preLoaderRoute: typeof WizardAnalysisRouteImport
-      parentRoute: typeof WizardRoute
-    }
     '/api/trpc/$': {
       id: '/api/trpc/$'
       path: '/api/trpc/$'
@@ -233,19 +175,6 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface WizardRouteChildren {
-  WizardAnalysisRoute: typeof WizardAnalysisRoute
-  WizardCategorizationRoute: typeof WizardCategorizationRoute
-}
-
-const WizardRouteChildren: WizardRouteChildren = {
-  WizardAnalysisRoute: WizardAnalysisRoute,
-  WizardCategorizationRoute: WizardCategorizationRoute,
-}
-
-const WizardRouteWithChildren =
-  WizardRoute._addFileChildren(WizardRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   R1GeminiRoute: R1GeminiRoute,
@@ -253,7 +182,6 @@ const rootRouteChildren: RootRouteChildren = {
   R3GeminiRoute: R3GeminiRoute,
   R4GeminiRoute: R4GeminiRoute,
   R5GeminiRoute: R5GeminiRoute,
-  WizardRoute: WizardRouteWithChildren,
   ApiTrpcSplatRoute: ApiTrpcSplatRoute,
 }
 export const routeTree = rootRouteImport
