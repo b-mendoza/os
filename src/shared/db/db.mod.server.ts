@@ -26,11 +26,8 @@ const SQL_CLIENT_PRODUCTION_OPTIONS: postgres.Options<UnknownPostgresTypes> = {
    */
   fetch_types: false,
   /**
-   * Limits the connection pool to 5 concurrent connections. Cloudflare Workers
-   * allow at most 6 simultaneous outbound connections per request, so we stay
-   * under that ceiling to avoid hitting platform limits.
-   *
-   * @see https://developers.cloudflare.com/workers/platform/limits/#simultaneous-open-connections
+   * Limits the connection pool to 5 concurrent connections to keep server-side
+   * connection usage predictable.
    */
   max: 5,
 };
