@@ -223,6 +223,6 @@ export default defineConfig(
       "vitest/valid-expect": ERROR,
     },
   },
-  globalIgnores([".pnpm-store/", "coverage/", "dist/", "src/routeTree.gen.ts"]),
+  globalIgnores([".output/", "coverage/", "src/routeTree.gen.ts"]),
   oxlint.buildFromOxlintConfigFile("./.oxlintrc.json"),
 );

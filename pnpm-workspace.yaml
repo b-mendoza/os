@@ -7,4 +7,3 @@ minimumReleaseAgeExclude:
   - "react-dom"
   - "react"
 saveExact: true
-# storeDir: ./.pnpm-store
