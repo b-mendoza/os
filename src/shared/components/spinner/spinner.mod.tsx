@@ -1,7 +1,5 @@
-import { ProgressBar } from "react-aria-components";
-
 export const Spinner = () => (
-  <ProgressBar aria-label="loading" isIndeterminate>
+  <span aria-label="loading" role="status">
     <span className="loading loading-spinner" />
-  </ProgressBar>
+  </span>
 );
