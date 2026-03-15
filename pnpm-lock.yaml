@@ -136,8 +136,8 @@ importers:
         specifier: 6.10.2
         version: 6.10.2(eslint@9.39.4(jiti@2.6.1))
       eslint-plugin-oxlint:
-        specifier: 1.51.0
-        version: 1.51.0
+        specifier: 1.53.0
+        version: 1.53.0
       eslint-plugin-react:
         specifier: 7.37.5
         version: 7.37.5(eslint@9.39.4(jiti@2.6.1))
@@ -2231,8 +2231,8 @@ packages:
     peerDependencies:
       eslint: '>=8.23.0'
 
-  eslint-plugin-oxlint@1.51.0:
-    resolution: {integrity: sha512-lct8LD1AxfHF1PcsuK6mFYals+zX0mx/WP2G4i16h0iR8jpT3xCfGTmTNwXiImcevzGIiJ/VDBgQ7t0B9z2Jeg==}
+  eslint-plugin-oxlint@1.53.0:
+    resolution: {integrity: sha512-rRsxP+11XyYynihsKBosP5/KNgCxNMLxVV4xSypsoCmHXaXnMMe+gscwugFvR4DZI/HCeg7+qR1Ru/aSv1hvSQ==}
 
   eslint-plugin-promise@7.2.1:
     resolution: {integrity: sha512-SWKjd+EuvWkYaS+uN2csvj0KoP43YTu7+phKQ5v+xw6+A0gutVX2yqCeCkC3uLCJFiPfR2dD8Es5L7yUsmvEaA==}
@@ -5742,7 +5742,7 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  eslint-plugin-oxlint@1.51.0:
+  eslint-plugin-oxlint@1.53.0:
     dependencies:
       jsonc-parser: 3.3.1
 
