@@ -63,7 +63,7 @@
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "5.2.0",
     "@vitest/coverage-istanbul": "4.1.4",
-    "@vitest/eslint-plugin": "1.6.15",
+    "@vitest/eslint-plugin": "1.6.16",
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "9.39.4",
     "eslint-config-love": "151.0.0",
