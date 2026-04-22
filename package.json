@@ -24,7 +24,7 @@
     "test:watch": "vitest watch"
   },
   "dependencies": {
-    "@tanstack/react-query": "5.99.1",
+    "@tanstack/react-query": "5.99.2",
     "@tanstack/react-router": "1.168.23",
     "@tanstack/react-router-ssr-query": "1.166.11",
     "@tanstack/react-start": "1.167.42",
@@ -50,7 +50,7 @@
     "@tailwindcss/vite": "4.2.2",
     "@tanstack/devtools-vite": "0.6.0",
     "@tanstack/react-devtools": "0.10.2",
-    "@tanstack/react-query-devtools": "5.99.1",
+    "@tanstack/react-query-devtools": "5.99.2",
     "@tanstack/react-router-devtools": "1.166.13",
     "@testing-library/dom": "10.4.1",
     "@testing-library/jest-dom": "6.9.1",
