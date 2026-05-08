@@ -66,7 +66,7 @@
     "@vitest/eslint-plugin": "1.6.16",
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "9.39.4",
-    "eslint-config-love": "151.0.0",
+    "eslint-config-love": "153.0.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-oxlint": "1.51.0",
     "eslint-plugin-react": "7.37.5",
